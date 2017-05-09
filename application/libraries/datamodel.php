@@ -1,16 +1,7 @@
 <?php
 
-class Personal_data
+class Datamodel
 {
-	/**
-	id ID
-	account 帳號
-	password 密碼
-	permission 權限
-	status 是否被停權 1代表停權 0代表沒被停權
-	
-	
-	*/
 	private $data = array();
 	
 	function __construct()
