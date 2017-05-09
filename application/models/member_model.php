@@ -13,7 +13,7 @@ class Member_model extends CI_Model
 		$this->load->library('Datamodel');
 	
 	}
-
+	
 	public function insertMember($person)
 	{
 
@@ -27,7 +27,7 @@ class Member_model extends CI_Model
 		$this->db->set('identity',$person->identity);
 
 		$this->db->set('status',0);
-		$this->db->insert('member');
+		$this->db->insert('account');
 	
 	}
 
@@ -36,7 +36,7 @@ class Member_model extends CI_Model
 	{
 		$this->db->where('id',$uid);
 		
-		$this->db->delete('member');
+		$this->db->delete('account');
 	
 	}
 	
@@ -46,7 +46,7 @@ class Member_model extends CI_Model
 		
 		$this->db->where('id',$uid);
 		
-		$this->db->update('member',$data);
+		$this->db->update('account',$data);
 	}
 
 	
@@ -54,18 +54,20 @@ class Member_model extends CI_Model
 	{
 		$this->db->where('id',$uid);
 		
-		$this->db->update('member',$array);
+		$this->db->update('account',$array);
 	}
 	
 	public function selectAccount($account)
 	{
 		$person = new Personal_data();
 		$this->db->select('`account`');
-		$this->db->from('member');
+		$this->db->from('account');
 		$this->db->where('account',$account);
 		$data = $this->db->get();
 		
-		if ($data->num_rows > 0)
+		
+		
+		if ($data->num_rows() > 0)
 		{
 			return 1;
 		}
@@ -80,12 +82,12 @@ class Member_model extends CI_Model
 	public function getMemberData($account)
 	{
 		$person = new Personal_data();
-		$this->db->select('`id`,`account`,`password`,`mail`,`name`,`tel1`,`tel2`,`contacter`,`identity`,`status`');
-		$this->db->from('member');
+		$this->db->select('`id`,`account`,`password`,`permission`,`status`');
+		$this->db->from('account');
 		$this->db->where('account',$account);
 		$data = $this->db->get();
 		
-		if ($data->num_rows > 0)
+		if ($data->num_rows() > 0)
 		{
 			$r = $data->result();
 			
